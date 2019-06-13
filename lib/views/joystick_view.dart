@@ -18,7 +18,7 @@ class JoystickView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Offset lastPosition;
-    double actualSize = false
+    double actualSize = size != null
         ? size
         : Math.min(MediaQuery.of(context).size.width,
                 MediaQuery.of(context).size.height) *
