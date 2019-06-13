@@ -40,7 +40,6 @@ class JoystickView extends StatelessWidget {
               setState(() => lastPosition = null);
             },
             onPanUpdate: (details) {
-              // print('onPanUpdate ${details.localPosition}');
               _processGesture(
                   actualSize, actualSize / 2, details.localPosition);
               setState(() => lastPosition = details.localPosition);

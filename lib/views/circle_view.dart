@@ -30,7 +30,7 @@ class CircleView extends StatelessWidget {
         size: size,
         color: Colors.white24,
         border: Border.all(
-          color: Colors.white60,
+          color: Colors.white54,
           width: 2.0,
           style: BorderStyle.solid,
         ),
