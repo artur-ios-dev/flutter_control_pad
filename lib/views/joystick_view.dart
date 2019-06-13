@@ -34,7 +34,9 @@ class JoystickView extends StatelessWidget {
               setState(() => lastPosition = details.localPosition);
             },
             onPanEnd: (details) {
-              onDirectionChanged(0, 0);
+              if (onDirectionChanged != null) {
+                onDirectionChanged(0, 0);
+              }
               setState(() => lastPosition = null);
             },
             onPanUpdate: (details) {
