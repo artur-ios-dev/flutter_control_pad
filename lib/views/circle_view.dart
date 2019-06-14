@@ -26,16 +26,6 @@ class CircleView extends StatelessWidget {
     );
   }
 
-  factory CircleView.touchIndicatorCircle(double size) => CircleView(
-        size: size,
-        color: Colors.white24,
-        border: Border.all(
-          color: Colors.white54,
-          width: 2.0,
-          style: BorderStyle.solid,
-        ),
-      );
-
   factory CircleView.joystickCircle(double size) => CircleView(
         size: size,
         color: Colors.blueGrey,
