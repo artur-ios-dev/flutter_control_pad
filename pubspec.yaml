@@ -1,6 +1,6 @@
 name: control_pad
 description: A control pad that allows you to control anything with a joystick.
-version: 0.0.2
+version: 0.0.3
 author: Artur Rymarz <artur.rymarz@gmail.com>
 homepage: https://github.com/artrmz/flutter_control_pad
 
