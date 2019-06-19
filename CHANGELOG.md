@@ -1,3 +1,7 @@
+## [0.0.5] - Pad buttons
+
+* Added pad buttons feature which are customizable
+
 ## [0.0.4] - Improvements
 
 * Added a parameter for configuring joystick events interval
