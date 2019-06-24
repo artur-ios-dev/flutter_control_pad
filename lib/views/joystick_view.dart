@@ -13,8 +13,29 @@ class JoystickView extends StatelessWidget {
   final Color iconsColor;
   final JoystickDirectionCallback onDirectionChanged;
 
+  /**
+   * Indicates how often the [onDirectionChanged] should be called.
+   * 
+   * Default value is [null] which means there will be no lower limit.
+   * Setting it to ie. 1 second will cause the callback to be not called more often
+   * than once per second.
+   * 
+   * The exception is the [onDirectionChanged] callback being called
+   * on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
+   */
+  final Duration interval;
+
+  /// Date when was the [onDirectionChanged] called the last time
+  /// 
+  /// It's set to proepr value on [onDirectionChanged] call
+  /// and to [null] on [onPanEnd] callback.
+  DateTime _callbackTimestamp;
+
   JoystickView(
-      {this.size, this.iconsColor = Colors.white54, this.onDirectionChanged});
+      {this.size,
+      this.iconsColor = Colors.white54,
+      this.onDirectionChanged,
+      this.interval = null});
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +59,11 @@ class JoystickView extends StatelessWidget {
               setState(() => lastPosition = details.localPosition);
             },
             onPanEnd: (details) {
+              _callbackTimestamp = null;
               if (onDirectionChanged != null) {
                 onDirectionChanged(0, 0);
               }
-               joystickInnerPosition = _calculatePositionOfInnerCircle(
+              joystickInnerPosition = _calculatePositionOfInnerCircle(
                   new Offset(innerCircleSize, innerCircleSize),
                   innerCircleSize,
                   actualSize,
@@ -135,9 +157,25 @@ class JoystickView extends StatelessWidget {
 
     double normalizedDistance = Math.min(distance / (size / 2), 1.0);
 
-    if (onDirectionChanged != null) {
+    if (onDirectionChanged != null && _canCallOnDirectionChanged()) {
+      _callbackTimestamp = DateTime.now();
       onDirectionChanged(degrees, normalizedDistance);
     }
+  }
+
+  bool _canCallOnDirectionChanged() {
+    if (interval != null && _callbackTimestamp != null) {
+      int intervalMilliseconds = interval.inMilliseconds;
+      int timestampMilliseconds = _callbackTimestamp.millisecondsSinceEpoch;
+      int currentTimeMilliseconds = DateTime.now().millisecondsSinceEpoch;
+
+      if (currentTimeMilliseconds - timestampMilliseconds <=
+          intervalMilliseconds) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   Offset _calculatePositionOfInnerCircle(
