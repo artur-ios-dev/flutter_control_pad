@@ -25,6 +25,13 @@ class JoystickView extends StatelessWidget {
    */
   final Duration interval;
 
+  /**
+   * Shows top/right/bottom/left arrows on top of Joystick
+   * 
+   * Defaults to [true]
+   */
+  final bool showArrows;
+
   /// Date when was the [onDirectionChanged] called the last time
   ///
   /// It's set to proepr value on [onDirectionChanged] call
@@ -35,7 +42,8 @@ class JoystickView extends StatelessWidget {
       {this.size,
       this.iconsColor = Colors.white54,
       this.onDirectionChanged,
-      this.interval = null});
+      this.interval = null,
+      this.showArrows = true});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +98,7 @@ class JoystickView extends StatelessWidget {
                   top: joystickInnerPosition.dy,
                   left: joystickInnerPosition.dx,
                 ),
-                ...createArrows(),
+                if (showArrows) ...createArrows(),
               ],
             ),
           );
