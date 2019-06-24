@@ -26,7 +26,7 @@ class JoystickView extends StatelessWidget {
   final Duration interval;
 
   /// Date when was the [onDirectionChanged] called the last time
-  /// 
+  ///
   /// It's set to proepr value on [onDirectionChanged] call
   /// and to [null] on [onPanEnd] callback.
   DateTime _callbackTimestamp;
@@ -163,6 +163,10 @@ class JoystickView extends StatelessWidget {
     }
   }
 
+  /// Checks if the [onDirectionChanged] can be called.
+  ///
+  /// Returns true if enough time has passed since last time it was called
+  /// or when there is no [interval] set.
   bool _canCallOnDirectionChanged() {
     if (interval != null && _callbackTimestamp != null) {
       int intervalMilliseconds = interval.inMilliseconds;
