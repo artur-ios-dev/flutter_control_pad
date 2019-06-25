@@ -1,13 +1,13 @@
 # control_pad
 
-A control pad that allows you to control anything with a joystick.
+A virtual pad with joystick controller and configurable buttons.
 
 <img src="https://i.imgur.com/ZwfNg9W.jpg" width="384">
 
-**WORK STILL IN PROGRESS. USE IT ON YOUR OWN RISK.**
+**CURRENTLY REQUIRES FLUTTER ON DEV CHANNEL**
 
 ## Features
 
 - [X] Joystick controller
+- [X] Configurable joystick events interval
 - [ ] Buttons
-- [ ] ???
