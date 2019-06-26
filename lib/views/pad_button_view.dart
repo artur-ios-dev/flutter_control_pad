@@ -12,20 +12,17 @@ typedef PadButtonPressedCallback = void Function(
     int buttonIndex, Gestures gesture);
 
 class PadButtonsView extends StatelessWidget {
-  /**
-   *  [size] optional parameter, space for background circle of all padd buttons. It will be
-   *  recalculated for pad buttons size.
-   *  Default value is calculated according to screen size.
-   */
+  /// [size] optional parameter, space for background circle of all padd buttons. It will be
+  /// recalculated for pad buttons size.
+  ///
+  /// Default value is calculated according to screen size.
   final double size;
 
   /// List of pad buttons, default contains 4 buttons
   final List<PadButtonItem> buttons;
 
-  /**
-   * [padButtonPressedCallback] contains information which button(index) was
-   * used by user and what gesture was done on it.
-   */
+  /// [padButtonPressedCallback] contains information which button(index) was
+  /// used by user and what gesture was done on it.
   final PadButtonPressedCallback padButtonPressedCallback;
 
   /// [buttonsStateMap] contains current colors of each button.
@@ -77,10 +74,16 @@ class PadButtonsView extends StatelessWidget {
         backgroundPadButtonsColor != Colors.transparent
             ? Colors.black12
             : Colors.transparent));
-    (buttons.asMap().map((index, paddButton) => MapEntry(
-        index,
-        list.add(createPositionedButtons(
-            paddButton, actualSize, index, innerCircleSize)))));
+
+    for (var i = 0; i < buttons.length; i++) {
+      var padButton = buttons[i];
+      list.add(createPositionedButtons(
+        padButton,
+        actualSize,
+        i,
+        innerCircleSize,
+      ));
+    }
     return list;
   }
 
