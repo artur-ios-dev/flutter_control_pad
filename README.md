@@ -2,7 +2,7 @@
 
 A virtual pad with joystick controller and configurable buttons.
 
-<img src="https://i.imgur.com/ZwfNg9W.jpg" width="384"> <img src="https://i.imgur.com/lOdTedp.png" width="384">
+<img src="https://i.imgur.com/ZwfNg9W.jpg" width="384"> <img src="https://i.imgur.com/lOdTedp.png" width="240">
 
 **CURRENTLY REQUIRES FLUTTER ON DEV CHANNEL**
 
