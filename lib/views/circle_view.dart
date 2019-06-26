@@ -10,13 +10,26 @@ class CircleView extends StatelessWidget {
 
   final Border border;
 
-  CircleView({this.size, this.color, this.boxShadow, this.border});
+  final Image buttonImage;
+
+  final String buttonText;
+
+  CircleView({
+    this.size,
+    this.color = Colors.transparent,
+    this.boxShadow,
+    this.border,
+    this.buttonImage,
+    this.buttonText = "",
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: size,
       height: size,
+      child:
+          Center(child: (buttonImage != null) ? buttonImage : Text(buttonText)),
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
@@ -46,6 +59,54 @@ class CircleView extends StatelessWidget {
   factory CircleView.joystickInnerCircle(double size) => CircleView(
         size: size,
         color: Colors.blueGrey,
+        border: Border.all(
+          color: Colors.black26,
+          width: 2.0,
+          style: BorderStyle.solid,
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: Colors.black12,
+            spreadRadius: 8.0,
+            blurRadius: 8.0,
+          )
+        ],
+      );
+
+  factory CircleView.padBackgroundCircle(
+    double size,
+    Color backgroundColour,
+    borderColor,
+    Color shadowColor,
+  ) =>
+      CircleView(
+        size: size,
+        color: backgroundColour,
+        border: Border.all(
+          color: borderColor,
+          width: 4.0,
+          style: BorderStyle.solid,
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: shadowColor,
+            spreadRadius: 8.0,
+            blurRadius: 8.0,
+          )
+        ],
+      );
+
+  factory CircleView.padButtonCircle(
+    double size,
+    Color color,
+    Image image,
+    String text,
+  ) =>
+      CircleView(
+        size: size,
+        color: color,
+        buttonImage: image,
+        buttonText: text,
         border: Border.all(
           color: Colors.black26,
           width: 2.0,
