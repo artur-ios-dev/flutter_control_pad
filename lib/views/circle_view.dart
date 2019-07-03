@@ -28,7 +28,7 @@ class CircleView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget circle = Container(
+    return Container(
       width: size,
       height: size,
       child: Center(
@@ -43,19 +43,9 @@ class CircleView extends StatelessWidget {
         boxShadow: boxShadow,
       ),
     );
-
-    if (opacity != null) {
-      return Opacity(
-        opacity: opacity,
-        child: circle,
-      );
-    }
-
-    return circle;
   }
 
-  factory CircleView.joystickCircle(double size, Color color) =>
-      CircleView(
+  factory CircleView.joystickCircle(double size, Color color) => CircleView(
         size: size,
         color: color,
         border: Border.all(
@@ -72,12 +62,10 @@ class CircleView extends StatelessWidget {
         ],
       );
 
-  factory CircleView.joystickInnerCircle(double size, Color color,
-          {double opacity}) =>
+  factory CircleView.joystickInnerCircle(double size, Color color) =>
       CircleView(
         size: size,
         color: color,
-        opacity: opacity,
         border: Border.all(
           color: Colors.black26,
           width: 2.0,

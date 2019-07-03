@@ -37,11 +37,6 @@ class JoystickView extends StatelessWidget {
   /// Defaults to [null] which means there will be no [Opacity] widget used
   final double opacity;
 
-  /// Opacity of the inner circle
-  ///
-  /// Defaults to [null] which means there will be no [Opacity] widget used
-  final double innerOpacity;
-
   /// Callback to be called when user pans the joystick
   ///
   /// Defaults to [null]
@@ -74,7 +69,6 @@ class JoystickView extends StatelessWidget {
       this.backgroundColor = Colors.blueGrey,
       this.innerCircleColor = Colors.blueGrey,
       this.opacity,
-      this.innerOpacity,
       this.onDirectionChanged,
       this.interval,
       this.showArrows = true});
@@ -87,32 +81,31 @@ class JoystickView extends StatelessWidget {
                 MediaQuery.of(context).size.height) *
             0.5;
     double innerCircleSize = actualSize / 2;
-    Offset lastPosition = new Offset(innerCircleSize, innerCircleSize);
+    Offset lastPosition = Offset(innerCircleSize, innerCircleSize);
     Offset joystickInnerPosition = _calculatePositionOfInnerCircle(
         lastPosition, innerCircleSize, actualSize, Offset(0, 0));
-
-    Widget joystick = Stack(
-      children: <Widget>[
-        CircleView.joystickCircle(
-          actualSize,
-          backgroundColor,
-        ),
-        Positioned(
-          child: CircleView.joystickInnerCircle(
-            actualSize / 2,
-            innerCircleColor,
-            opacity: innerOpacity,
-          ),
-          top: joystickInnerPosition.dy,
-          left: joystickInnerPosition.dx,
-        ),
-        if (showArrows) ...createArrows(),
-      ],
-    );
 
     return Center(
       child: StatefulBuilder(
         builder: (context, setState) {
+          Widget joystick = Stack(
+            children: <Widget>[
+              CircleView.joystickCircle(
+                actualSize,
+                backgroundColor,
+              ),
+              Positioned(
+                child: CircleView.joystickInnerCircle(
+                  actualSize / 2,
+                  innerCircleColor,
+                ),
+                top: joystickInnerPosition.dy,
+                left: joystickInnerPosition.dx,
+              ),
+              if (showArrows) ...createArrows(),
+            ],
+          );
+
           return GestureDetector(
             onPanStart: (details) {
               _processGesture(
@@ -125,12 +118,12 @@ class JoystickView extends StatelessWidget {
                 onDirectionChanged(0, 0);
               }
               joystickInnerPosition = _calculatePositionOfInnerCircle(
-                  new Offset(innerCircleSize, innerCircleSize),
+                  Offset(innerCircleSize, innerCircleSize),
                   innerCircleSize,
                   actualSize,
-                  new Offset(0, 0));
+                  Offset(0, 0));
               setState(() =>
-                  lastPosition = new Offset(innerCircleSize, innerCircleSize));
+                  lastPosition = Offset(innerCircleSize, innerCircleSize));
             },
             onPanUpdate: (details) {
               _processGesture(
@@ -143,7 +136,7 @@ class JoystickView extends StatelessWidget {
 
               setState(() => lastPosition = details.localPosition);
             },
-            child: opacity != null
+            child: (opacity != null)
                 ? Opacity(opacity: opacity, child: joystick)
                 : joystick,
           );
@@ -292,6 +285,6 @@ class JoystickView extends StatelessWidget {
         yPosition = y;
       }
     }
-    return new Offset(xPosition, yPosition);
+    return Offset(xPosition, yPosition);
   }
 }
