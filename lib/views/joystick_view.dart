@@ -13,23 +13,19 @@ class JoystickView extends StatelessWidget {
   final Color iconsColor;
   final JoystickDirectionCallback onDirectionChanged;
 
-  /**
-   * Indicates how often the [onDirectionChanged] should be called.
-   * 
-   * Default value is [null] which means there will be no lower limit.
-   * Setting it to ie. 1 second will cause the callback to be not called more often
-   * than once per second.
-   * 
-   * The exception is the [onDirectionChanged] callback being called
-   * on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
-   */
+   /// Indicates how often the [onDirectionChanged] should be called.
+   ///
+   /// Default value is [null] which means there will be no lower limit.\
+   /// Setting it to ie. 1 second will cause the callback to be not called more often
+   /// than once per second.
+   /// 
+   /// The exception is the [onDirectionChanged] callback being called
+   /// on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
   final Duration interval;
 
-  /**
-   * Shows top/right/bottom/left arrows on top of Joystick
-   * 
-   * Defaults to [true]
-   */
+  /// Shows top/right/bottom/left arrows on top of Joystick
+  /// 
+  /// Defaults to [true] 
   final bool showArrows;
 
   /// Date when was the [onDirectionChanged] called the last time
@@ -42,7 +38,7 @@ class JoystickView extends StatelessWidget {
       {this.size,
       this.iconsColor = Colors.white54,
       this.onDirectionChanged,
-      this.interval = null,
+      this.interval,
       this.showArrows = true});
 
   @override
