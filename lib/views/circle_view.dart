@@ -10,6 +10,8 @@ class CircleView extends StatelessWidget {
 
   final Border border;
 
+  final double opacity;
+
   final Image buttonImage;
 
   final String buttonText;
@@ -19,8 +21,9 @@ class CircleView extends StatelessWidget {
     this.color = Colors.transparent,
     this.boxShadow,
     this.border,
+    this.opacity,
     this.buttonImage,
-    this.buttonText = "",
+    this.buttonText,
   });
 
   @override
@@ -28,8 +31,11 @@ class CircleView extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      child:
-          Center(child: (buttonImage != null) ? buttonImage : Text(buttonText)),
+      child: Center(
+        child: (buttonImage != null)
+            ? buttonImage
+            : (buttonText != null) ? Text(buttonText) : null,
+      ),
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
@@ -39,9 +45,9 @@ class CircleView extends StatelessWidget {
     );
   }
 
-  factory CircleView.joystickCircle(double size) => CircleView(
+  factory CircleView.joystickCircle(double size, Color color) => CircleView(
         size: size,
-        color: Colors.blueGrey,
+        color: color,
         border: Border.all(
           color: Colors.black45,
           width: 4.0,
@@ -56,9 +62,10 @@ class CircleView extends StatelessWidget {
         ],
       );
 
-  factory CircleView.joystickInnerCircle(double size) => CircleView(
+  factory CircleView.joystickInnerCircle(double size, Color color) =>
+      CircleView(
         size: size,
-        color: Colors.blueGrey,
+        color: color,
         border: Border.all(
           color: Colors.black26,
           width: 2.0,
@@ -74,14 +81,12 @@ class CircleView extends StatelessWidget {
       );
 
   factory CircleView.padBackgroundCircle(
-    double size,
-    Color backgroundColour,
-    borderColor,
-    Color shadowColor,
-  ) =>
+          double size, Color backgroundColour, borderColor, Color shadowColor,
+          {double opacity}) =>
       CircleView(
         size: size,
         color: backgroundColour,
+        opacity: opacity,
         border: Border.all(
           color: borderColor,
           width: 4.0,

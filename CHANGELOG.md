@@ -1,3 +1,9 @@
+## [0.0.6] - Overall Improvements
+
+* Added a backgroundColor parameters for a joystick's background and an inner circle
+* Added a opacity parameter for a whole joystick
+* Fixed a few warnings reported by static analyze
+
 ## [0.0.5] - Pad buttons
 
 * Added pad buttons feature which are customizable

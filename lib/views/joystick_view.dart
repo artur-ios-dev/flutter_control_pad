@@ -9,23 +9,52 @@ typedef JoystickDirectionCallback = void Function(
     double degrees, double distance);
 
 class JoystickView extends StatelessWidget {
+  /// The size of the joystick.
+  ///
+  /// Defaults to half of the width in the portrait
+  /// or half of the height in the landscape mode
   final double size;
+
+  /// Color of the icons
+  ///
+  /// Defaults to [Colors.white54]
   final Color iconsColor;
+
+  /// Color of the joystick background
+  ///
+  /// Defaults to [Colors.blueGrey]
+  final Color backgroundColor;
+
+  /// Color of the inner (smaller) circle background
+  ///
+  /// Defaults to [Colors.blueGrey]
+  final Color innerCircleColor;
+
+  /// Opacity of the joystick
+  ///
+  /// The opacity applies to the whole joystick including icons
+  ///
+  /// Defaults to [null] which means there will be no [Opacity] widget used
+  final double opacity;
+
+  /// Callback to be called when user pans the joystick
+  ///
+  /// Defaults to [null]
   final JoystickDirectionCallback onDirectionChanged;
 
-   /// Indicates how often the [onDirectionChanged] should be called.
-   ///
-   /// Default value is [null] which means there will be no lower limit.\
-   /// Setting it to ie. 1 second will cause the callback to be not called more often
-   /// than once per second.
-   /// 
-   /// The exception is the [onDirectionChanged] callback being called
-   /// on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
+  /// Indicates how often the [onDirectionChanged] should be called.
+  ///
+  /// Defaults to [null] which means there will be no lower limit.
+  /// Setting it to ie. 1 second will cause the callback to be not called more often
+  /// than once per second.
+  ///
+  /// The exception is the [onDirectionChanged] callback being called
+  /// on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
   final Duration interval;
 
   /// Shows top/right/bottom/left arrows on top of Joystick
-  /// 
-  /// Defaults to [true] 
+  ///
+  /// Defaults to [true]
   final bool showArrows;
 
   /// Date when was the [onDirectionChanged] called the last time
@@ -37,6 +66,9 @@ class JoystickView extends StatelessWidget {
   JoystickView(
       {this.size,
       this.iconsColor = Colors.white54,
+      this.backgroundColor = Colors.blueGrey,
+      this.innerCircleColor = Colors.blueGrey,
+      this.opacity,
       this.onDirectionChanged,
       this.interval,
       this.showArrows = true});
@@ -49,13 +81,31 @@ class JoystickView extends StatelessWidget {
                 MediaQuery.of(context).size.height) *
             0.5;
     double innerCircleSize = actualSize / 2;
-    Offset lastPosition = new Offset(innerCircleSize, innerCircleSize);
+    Offset lastPosition = Offset(innerCircleSize, innerCircleSize);
     Offset joystickInnerPosition = _calculatePositionOfInnerCircle(
         lastPosition, innerCircleSize, actualSize, Offset(0, 0));
 
     return Center(
       child: StatefulBuilder(
         builder: (context, setState) {
+          Widget joystick = Stack(
+            children: <Widget>[
+              CircleView.joystickCircle(
+                actualSize,
+                backgroundColor,
+              ),
+              Positioned(
+                child: CircleView.joystickInnerCircle(
+                  actualSize / 2,
+                  innerCircleColor,
+                ),
+                top: joystickInnerPosition.dy,
+                left: joystickInnerPosition.dx,
+              ),
+              if (showArrows) ...createArrows(),
+            ],
+          );
+
           return GestureDetector(
             onPanStart: (details) {
               _processGesture(
@@ -68,12 +118,12 @@ class JoystickView extends StatelessWidget {
                 onDirectionChanged(0, 0);
               }
               joystickInnerPosition = _calculatePositionOfInnerCircle(
-                  new Offset(innerCircleSize, innerCircleSize),
+                  Offset(innerCircleSize, innerCircleSize),
                   innerCircleSize,
                   actualSize,
-                  new Offset(0, 0));
+                  Offset(0, 0));
               setState(() =>
-                  lastPosition = new Offset(innerCircleSize, innerCircleSize));
+                  lastPosition = Offset(innerCircleSize, innerCircleSize));
             },
             onPanUpdate: (details) {
               _processGesture(
@@ -86,17 +136,9 @@ class JoystickView extends StatelessWidget {
 
               setState(() => lastPosition = details.localPosition);
             },
-            child: Stack(
-              children: <Widget>[
-                CircleView.joystickCircle(actualSize),
-                Positioned(
-                  child: CircleView.joystickInnerCircle(actualSize / 2),
-                  top: joystickInnerPosition.dy,
-                  left: joystickInnerPosition.dx,
-                ),
-                if (showArrows) ...createArrows(),
-              ],
-            ),
+            child: (opacity != null)
+                ? Opacity(opacity: opacity, child: joystick)
+                : joystick,
           );
         },
       ),
@@ -243,6 +285,6 @@ class JoystickView extends StatelessWidget {
         yPosition = y;
       }
     }
-    return new Offset(xPosition, yPosition);
+    return Offset(xPosition, yPosition);
   }
 }
