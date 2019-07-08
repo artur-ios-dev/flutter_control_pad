@@ -1,4 +1,4 @@
-## [0.0.6] - Overall Improvements
+## [1.0.0] - Overall Improvements
 
 * Added a backgroundColor parameters for a joystick's background and an inner circle
 * Added a opacity parameter for a whole joystick

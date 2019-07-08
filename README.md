@@ -9,5 +9,29 @@ A virtual pad with joystick controller and configurable buttons.
 ## Features
 
 - [X] Joystick controller
-- [X] Configurable joystick events interval
-- [X] Buttons
+- [X] Pad's buttons
+- [X] Configurable events interval
+- [X] Configurable colors
+
+## Usage
+
+```dart
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Control Pad Example'),
+      ),
+      body: Container(
+        color: Colors.white,
+        child: JoystickView(),
+      ),
+    );
+  }
+}
+```
+
+## Questions or Feedback?
+
+Feel free to [open an issue](https://github.com/artrmz/flutter_control_pad/issues/new).
