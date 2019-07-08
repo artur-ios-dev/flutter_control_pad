@@ -57,12 +57,6 @@ class JoystickView extends StatelessWidget {
   /// Defaults to [true]
   final bool showArrows;
 
-  /// Date when was the [onDirectionChanged] called the last time
-  ///
-  /// It's set to proepr value on [onDirectionChanged] call
-  /// and to [null] on [onPanEnd] callback.
-  DateTime _callbackTimestamp;
-
   JoystickView(
       {this.size,
       this.iconsColor = Colors.white54,
@@ -84,6 +78,8 @@ class JoystickView extends StatelessWidget {
     Offset lastPosition = Offset(innerCircleSize, innerCircleSize);
     Offset joystickInnerPosition = _calculatePositionOfInnerCircle(
         lastPosition, innerCircleSize, actualSize, Offset(0, 0));
+
+    DateTime _callbackTimestamp;
 
     return Center(
       child: StatefulBuilder(
@@ -108,8 +104,8 @@ class JoystickView extends StatelessWidget {
 
           return GestureDetector(
             onPanStart: (details) {
-              _processGesture(
-                  actualSize, actualSize / 2, details.localPosition);
+              _callbackTimestamp = _processGesture(actualSize, actualSize / 2,
+                  details.localPosition, _callbackTimestamp);
               setState(() => lastPosition = details.localPosition);
             },
             onPanEnd: (details) {
@@ -126,8 +122,8 @@ class JoystickView extends StatelessWidget {
                   lastPosition = Offset(innerCircleSize, innerCircleSize));
             },
             onPanUpdate: (details) {
-              _processGesture(
-                  actualSize, actualSize / 2, details.localPosition);
+              _callbackTimestamp = _processGesture(actualSize, actualSize / 2,
+                  details.localPosition, _callbackTimestamp);
               joystickInnerPosition = _calculatePositionOfInnerCircle(
                   lastPosition,
                   innerCircleSize,
@@ -186,7 +182,8 @@ class JoystickView extends StatelessWidget {
     ];
   }
 
-  void _processGesture(double size, double ignoreSize, Offset offset) {
+  DateTime _processGesture(double size, double ignoreSize, Offset offset,
+      DateTime callbackTimestamp) {
     double middle = size / 2.0;
 
     double angle = Math.atan2(offset.dy - middle, offset.dx - middle);
@@ -203,20 +200,24 @@ class JoystickView extends StatelessWidget {
 
     double normalizedDistance = Math.min(distance / (size / 2), 1.0);
 
-    if (onDirectionChanged != null && _canCallOnDirectionChanged()) {
+    DateTime _callbackTimestamp = callbackTimestamp;
+    if (onDirectionChanged != null &&
+        _canCallOnDirectionChanged(callbackTimestamp)) {
       _callbackTimestamp = DateTime.now();
       onDirectionChanged(degrees, normalizedDistance);
     }
+
+    return _callbackTimestamp;
   }
 
   /// Checks if the [onDirectionChanged] can be called.
   ///
   /// Returns true if enough time has passed since last time it was called
   /// or when there is no [interval] set.
-  bool _canCallOnDirectionChanged() {
-    if (interval != null && _callbackTimestamp != null) {
+  bool _canCallOnDirectionChanged(DateTime callbackTimestamp) {
+    if (interval != null && callbackTimestamp != null) {
       int intervalMilliseconds = interval.inMilliseconds;
-      int timestampMilliseconds = _callbackTimestamp.millisecondsSinceEpoch;
+      int timestampMilliseconds = callbackTimestamp.millisecondsSinceEpoch;
       int currentTimeMilliseconds = DateTime.now().millisecondsSinceEpoch;
 
       if (currentTimeMilliseconds - timestampMilliseconds <=
