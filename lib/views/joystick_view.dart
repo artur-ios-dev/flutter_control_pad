@@ -1,4 +1,4 @@
-import 'dart:math' as Math;
+import 'dart:math' as _math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -71,7 +71,7 @@ class JoystickView extends StatelessWidget {
   Widget build(BuildContext context) {
     double actualSize = size != null
         ? size
-        : Math.min(MediaQuery.of(context).size.width,
+        : _math.min(MediaQuery.of(context).size.width,
                 MediaQuery.of(context).size.height) *
             0.5;
     double innerCircleSize = actualSize / 2;
@@ -186,19 +186,19 @@ class JoystickView extends StatelessWidget {
       DateTime callbackTimestamp) {
     double middle = size / 2.0;
 
-    double angle = Math.atan2(offset.dy - middle, offset.dx - middle);
-    double degrees = angle * 180 / Math.pi + 90;
+    double angle = _math.atan2(offset.dy - middle, offset.dx - middle);
+    double degrees = angle * 180 / _math.pi + 90;
     if (offset.dx < middle && offset.dy < middle) {
       degrees = 360 + degrees;
     }
 
-    double dx = Math.max(0, Math.min(offset.dx, size));
-    double dy = Math.max(0, Math.min(offset.dy, size));
+    double dx = _math.max(0, _math.min(offset.dx, size));
+    double dy = _math.max(0, _math.min(offset.dy, size));
 
     double distance =
-        Math.sqrt(Math.pow(middle - dx, 2) + Math.pow(middle - dy, 2));
+        _math.sqrt(_math.pow(middle - dx, 2) + _math.pow(middle - dy, 2));
 
-    double normalizedDistance = Math.min(distance / (size / 2), 1.0);
+    double normalizedDistance = _math.min(distance / (size / 2), 1.0);
 
     DateTime _callbackTimestamp = callbackTimestamp;
     if (onDirectionChanged != null &&
@@ -233,45 +233,45 @@ class JoystickView extends StatelessWidget {
       Offset lastPosition, double innerCircleSize, double size, Offset offset) {
     double middle = size / 2.0;
 
-    double angle = Math.atan2(offset.dy - middle, offset.dx - middle);
-    double degrees = angle * 180 / Math.pi;
+    double angle = _math.atan2(offset.dy - middle, offset.dx - middle);
+    double degrees = angle * 180 / _math.pi;
     if (offset.dx < middle && offset.dy < middle) {
       degrees = 360 + degrees;
     }
     bool isStartPosition = lastPosition.dx == innerCircleSize &&
         lastPosition.dy == innerCircleSize;
     double lastAngleRadians =
-        (isStartPosition) ? 0 : (degrees) * (Math.pi / 180.0);
+        (isStartPosition) ? 0 : (degrees) * (_math.pi / 180.0);
 
     var rBig = size / 2;
     var rSmall = innerCircleSize / 2;
 
     var x = (lastAngleRadians == -1)
         ? rBig - rSmall
-        : (rBig - rSmall) + (rBig - rSmall) * Math.cos(lastAngleRadians);
+        : (rBig - rSmall) + (rBig - rSmall) * _math.cos(lastAngleRadians);
     var y = (lastAngleRadians == -1)
         ? rBig - rSmall
-        : (rBig - rSmall) + (rBig - rSmall) * Math.sin(lastAngleRadians);
+        : (rBig - rSmall) + (rBig - rSmall) * _math.sin(lastAngleRadians);
 
     var xPosition = lastPosition.dx - rSmall;
     var yPosition = lastPosition.dy - rSmall;
 
-    var angleRadianPlus = lastAngleRadians + Math.pi / 2;
-    if (angleRadianPlus < Math.pi / 2) {
+    var angleRadianPlus = lastAngleRadians + _math.pi / 2;
+    if (angleRadianPlus < _math.pi / 2) {
       if (xPosition > x) {
         xPosition = x;
       }
       if (yPosition < y) {
         yPosition = y;
       }
-    } else if (angleRadianPlus < Math.pi) {
+    } else if (angleRadianPlus < _math.pi) {
       if (xPosition > x) {
         xPosition = x;
       }
       if (yPosition > y) {
         yPosition = y;
       }
-    } else if (angleRadianPlus < 3 * Math.pi / 2) {
+    } else if (angleRadianPlus < 3 * _math.pi / 2) {
       if (xPosition < x) {
         xPosition = x;
       }

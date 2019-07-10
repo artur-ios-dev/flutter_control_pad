@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'dart:math' as Math;
+import 'dart:math' as _math;
 
 import 'package:control_pad/models/gestures.dart';
 import 'package:control_pad/models/pad_button_item.dart';
@@ -45,7 +45,7 @@ class PadButtonsView extends StatelessWidget {
     this.padButtonPressedCallback,
     this.buttonsPadding = 0,
     this.backgroundPadButtonsColor = Colors.transparent,
-  }) : assert(buttons != null && buttons.length > 0) {
+  }) : assert(buttons != null && buttons.isNotEmpty) {
     buttons.forEach(
         (button) => buttonsStateMap[button.index] = button.backgroundColor);
   }
@@ -54,7 +54,7 @@ class PadButtonsView extends StatelessWidget {
   Widget build(BuildContext context) {
     double actualSize = size != null
         ? size
-        : Math.min(MediaQuery.of(context).size.width,
+        : _math.min(MediaQuery.of(context).size.width,
                 MediaQuery.of(context).size.height) *
             0.5;
     double innerCircleSize = actualSize / 3;
@@ -153,21 +153,21 @@ class PadButtonsView extends StatelessWidget {
   double _calculatePositionXOfButton(
       int index, double innerCircleSize, double actualSize) {
     double degrees = 360 / buttons.length * index;
-    double lastAngleRadians = (degrees) * (Math.pi / 180.0);
+    double lastAngleRadians = (degrees) * (_math.pi / 180.0);
 
     var rBig = actualSize / 2;
     var rSmall = (innerCircleSize + 2 * buttonsPadding) / 2;
 
-    return (rBig - rSmall) + (rBig - rSmall) * Math.cos(lastAngleRadians);
+    return (rBig - rSmall) + (rBig - rSmall) * _math.cos(lastAngleRadians);
   }
 
   double _calculatePositionYOfButton(
       int index, double innerCircleSize, double actualSize) {
     double degrees = 360 / buttons.length * index;
-    double lastAngleRadians = (degrees) * (Math.pi / 180.0);
+    double lastAngleRadians = (degrees) * (_math.pi / 180.0);
     var rBig = actualSize / 2;
     var rSmall = (innerCircleSize + 2 * buttonsPadding) / 2;
 
-    return (rBig - rSmall) + (rBig - rSmall) * Math.sin(lastAngleRadians);
+    return (rBig - rSmall) + (rBig - rSmall) * _math.sin(lastAngleRadians);
   }
 }
