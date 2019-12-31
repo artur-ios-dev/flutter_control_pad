@@ -109,6 +109,8 @@ class PadButtonsView extends StatelessWidget {
                 buttonsStateMap[paddButton.index] = paddButton.pressedColor);
           },
           onTapCancel: () {
+            _processGesture(paddButton, Gestures.TAPCANCEL);
+
             setState(() =>
                 buttonsStateMap[paddButton.index] = paddButton.backgroundColor);
           },
