@@ -1,3 +1,7 @@
+## [1.0.1+1] - Improvements
+* Added onTapCancel Gesture Feedback to pad_button_view
+* Removed color of JoystickView parent Container
+
 ## [1.0.0] - Overall Improvements
 
 * Added a backgroundColor parameters for a joystick's background and an inner circle
