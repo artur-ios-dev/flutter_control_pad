@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
         title: Text('Control Pad Example'),
       ),
       body: Container(
-        color: Colors.white,
         child: JoystickView(),
       ),
     );
