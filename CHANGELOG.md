@@ -1,3 +1,6 @@
+## [1.1.1+1] - Pad Button Icon
+* Added optional icon to the Pad Button
+
 ## [1.0.1+1] - Improvements
 * Added onTapCancel Gesture Feedback to pad_button_view
 * Removed color of JoystickView parent Container

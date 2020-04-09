@@ -17,6 +17,10 @@ class PadButtonItem {
   /// the button.
   final Image buttonImage;
 
+  /// [buttonIcon] optional parameter, image which will be displayed inside
+  /// the button.
+  final Icon buttonIcon;
+
   /// [backgroundColor] color of button in default state.
   final Color backgroundColor;
 
@@ -33,6 +37,7 @@ class PadButtonItem {
     @required this.index,
     this.buttonText,
     this.buttonImage,
+    this.buttonIcon,
     this.backgroundColor = Colors.white54,
     this.pressedColor = Colors.lightBlueAccent,
     this.supportedGestures = const [Gestures.TAP],

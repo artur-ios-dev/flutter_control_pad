@@ -135,6 +135,7 @@ class PadButtonsView extends StatelessWidget {
                 innerCircleSize,
                 buttonsStateMap[paddButton.index],
                 paddButton.buttonImage,
+                paddButton.buttonIcon,
                 paddButton.buttonText),
           ),
         );
