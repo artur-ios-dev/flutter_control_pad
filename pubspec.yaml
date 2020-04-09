@@ -1,6 +1,6 @@
 name: control_pad
 description: A virtual pad with joystick controller and configurable buttons.
-version: 1.0.1+1
+version: 1.1.1+1
 homepage: https://github.com/artrmz/flutter_control_pad
 
 environment:
