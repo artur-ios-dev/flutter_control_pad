@@ -1,8 +1,8 @@
 import 'dart:collection';
 import 'dart:math' as _math;
 
-import '../models/gestures.dart';
-import '../models/pad_button_item.dart';
+import 'package:control_pad/models/gestures.dart';
+import 'package:control_pad/models/pad_button_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

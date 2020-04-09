@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../lib/control_pad.dart';
+import 'package:control_pad/control_pad.dart';
 
 void main() {
   runApp(ExampleApp());
