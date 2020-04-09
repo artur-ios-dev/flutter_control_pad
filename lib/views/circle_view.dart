@@ -14,6 +14,8 @@ class CircleView extends StatelessWidget {
 
   final Image buttonImage;
 
+  final Icon buttonIcon;
+
   final String buttonText;
 
   CircleView({
@@ -23,6 +25,7 @@ class CircleView extends StatelessWidget {
     this.border,
     this.opacity,
     this.buttonImage,
+    this.buttonIcon,
     this.buttonText,
   });
 
@@ -32,9 +35,11 @@ class CircleView extends StatelessWidget {
       width: size,
       height: size,
       child: Center(
-        child: (buttonImage != null)
-            ? buttonImage
-            : (buttonText != null) ? Text(buttonText) : null,
+        child: buttonIcon != null
+            ? buttonIcon
+            : (buttonImage != null)
+                ? buttonImage
+                : (buttonText != null) ? Text(buttonText) : null,
       ),
       decoration: BoxDecoration(
         color: color,
@@ -105,12 +110,14 @@ class CircleView extends StatelessWidget {
     double size,
     Color color,
     Image image,
+    Icon icon,
     String text,
   ) =>
       CircleView(
         size: size,
         color: color,
         buttonImage: image,
+        buttonIcon: icon,
         buttonText: text,
         border: Border.all(
           color: Colors.black26,
