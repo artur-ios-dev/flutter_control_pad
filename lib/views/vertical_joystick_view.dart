@@ -137,24 +137,6 @@ class VerticalJoystickView extends StatelessWidget {
       ),
       Positioned(
         child: Icon(
-          Icons.arrow_back,
-          color: iconsColor,
-        ),
-        top: 0.0,
-        bottom: 0.0,
-        left: 16.0,
-      ),
-      Positioned(
-        child: Icon(
-          Icons.arrow_forward,
-          color: iconsColor,
-        ),
-        top: 0.0,
-        bottom: 0.0,
-        right: 16.0,
-      ),
-      Positioned(
-        child: Icon(
           Icons.arrow_downward,
           color: iconsColor,
         ),
