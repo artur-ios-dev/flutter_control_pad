@@ -115,6 +115,19 @@ class VerticalJoystickView extends StatelessWidget {
 
               setState(() => lastPosition = details.localPosition);
             },
+            onPanEnd: (details) {
+              _callbackTimestamp = null;
+              if (onDirectionChanged != null) {
+                onDirectionChanged(0);
+              }
+              joystickInnerPosition = _calculatePositionOfInnerCircle(
+                  Offset(innerCircleSize, innerCircleSize),
+                  innerCircleSize,
+                  actualSize,
+                  Offset(0, 0));
+              setState(() =>
+                  lastPosition = Offset(innerCircleSize, innerCircleSize));
+            },
             child: (opacity != null)
                 ? Opacity(opacity: opacity, child: joystick)
                 : joystick,
