@@ -1,5 +1,5 @@
+import 'package:control_pad/views/vertical_joystick_view.dart';
 import 'package:flutter/material.dart';
-import 'package:control_pad/control_pad.dart';
 
 void main() {
   runApp(ExampleApp());
@@ -23,7 +23,11 @@ class HomePage extends StatelessWidget {
         title: Text('Control Pad Example'),
       ),
       body: Container(
-        child: JoystickView(),
+        child: VerticalJoystickView(
+          onDirectionChanged: (distance) {
+            print(distance);
+          },
+        ),
       ),
     );
   }
