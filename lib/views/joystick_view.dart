@@ -147,8 +147,9 @@ class JoystickView extends StatelessWidget {
         child: Icon(
           Icons.arrow_upward,
           color: iconsColor,
+          size: 15,
         ),
-        top: 16.0,
+        top: 7.0,
         left: 0.0,
         right: 0.0,
       ),
@@ -156,26 +157,29 @@ class JoystickView extends StatelessWidget {
         child: Icon(
           Icons.arrow_back,
           color: iconsColor,
+          size: 15,
         ),
         top: 0.0,
         bottom: 0.0,
-        left: 16.0,
+        left: 7.0,
       ),
       Positioned(
         child: Icon(
           Icons.arrow_forward,
           color: iconsColor,
+          size: 15,
         ),
         top: 0.0,
         bottom: 0.0,
-        right: 16.0,
+        right: 7.0,
       ),
       Positioned(
         child: Icon(
           Icons.arrow_downward,
           color: iconsColor,
+          size: 15,
         ),
-        bottom: 16.0,
+        bottom: 7.0,
         left: 0.0,
         right: 0.0,
       ),
