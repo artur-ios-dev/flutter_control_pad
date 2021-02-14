@@ -50,6 +50,19 @@ class CircleView extends StatelessWidget {
     );
   }
 
+  CircleView copyWith({double size, Color color, List<BoxShadow> boxShadow, Border border, double opacity, Image buttonImage, Icon buttonIcon, String buttonText}) {
+    return CircleView(
+      size: size ?? this.size,
+      color: color ?? this.color,
+      boxShadow: boxShadow ?? this.boxShadow,
+      border: border ?? this.border,
+      opacity: opacity ?? this.opacity,
+      buttonImage: buttonImage ?? this.buttonImage,
+      buttonIcon: buttonIcon ?? this.buttonIcon,
+      buttonText: buttonText ?? this.buttonText,
+    );
+  }
+
   factory CircleView.joystickCircle(double size, Color color) => CircleView(
         size: size,
         color: color,
