@@ -20,15 +20,17 @@ class JoystickView extends StatelessWidget {
   /// Defaults to [Colors.white54]
   final Color iconsColor;
 
-  /// Color of the joystick background
+  /// The inner circle
   ///
-  /// Defaults to [Colors.blueGrey]
-  final Color backgroundColor;
+  /// Size will be automatically set
+  /// Defaults to [CircleView.joystickInnerCircle()]
+  final CircleView innerCircle;
 
-  /// Color of the inner (smaller) circle background
+  /// The outer circle
   ///
-  /// Defaults to [Colors.blueGrey]
-  final Color innerCircleColor;
+  /// Size will be automatically set
+  // /Defaults to [CircleView.joystickCircle()]
+  final CircleView outerCircle;
 
   /// Opacity of the joystick
   ///
@@ -57,18 +59,18 @@ class JoystickView extends StatelessWidget {
   /// Defaults to [true]
   final bool showIcons;
 
-  // Customize the icons shown on top of Joystick
-  //
-  // the IconData provided will be rotated to match its position
-  //
-  // Defaults to [Icons.arrow_upward]
+  /// Customize the icons shown on top of Joystick
+  ///
+  /// The IconData provided will be rotated to match its position
+  ///
+  /// Defaults to [Icons.arrow_upward]
   final IconData directionIcon;
 
   JoystickView(
       {this.size,
       this.iconsColor = Colors.white54,
-      this.backgroundColor = Colors.blueGrey,
-      this.innerCircleColor = Colors.blueGrey,
+      this.innerCircle,
+      this.outerCircle,
       this.opacity,
       this.onDirectionChanged,
       this.interval,
@@ -94,15 +96,17 @@ class JoystickView extends StatelessWidget {
         builder: (context, setState) {
           Widget joystick = Stack(
             children: <Widget>[
-              CircleView.joystickCircle(
-                actualSize,
-                backgroundColor,
-              ),
+              this.outerCircle.copyWith(size: actualSize) ??
+                  CircleView.joystickCircle(
+                    actualSize,
+                    Colors.blueGrey,
+                  ),
               Positioned(
-                child: CircleView.joystickInnerCircle(
-                  actualSize / 2,
-                  innerCircleColor,
-                ),
+                child: this.innerCircle.copyWith(size: actualSize / 2) ??
+                    CircleView.joystickInnerCircle(
+                      actualSize / 2,
+                      Colors.blueGrey,
+                    ),
                 top: joystickInnerPosition.dy,
                 left: joystickInnerPosition.dx,
               ),
