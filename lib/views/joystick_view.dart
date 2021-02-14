@@ -20,15 +20,17 @@ class JoystickView extends StatelessWidget {
   /// Defaults to [Colors.white54]
   final Color iconsColor;
 
-  /// Color of the joystick background
+  /// The inner circle
   ///
-  /// Defaults to [Colors.blueGrey]
-  final Color backgroundColor;
+  /// Size will be automatically set
+  /// Defaults to [CircleView.joystickInnerCircle()]
+  final CircleView innerCircle;
 
-  /// Color of the inner (smaller) circle background
+  /// The outer circle
   ///
-  /// Defaults to [Colors.blueGrey]
-  final Color innerCircleColor;
+  /// Size will be automatically set
+  // /Defaults to [CircleView.joystickCircle()]
+  final CircleView outerCircle;
 
   /// Opacity of the joystick
   ///
@@ -52,20 +54,28 @@ class JoystickView extends StatelessWidget {
   /// on the [onPanStart] and [onPanEnd] callbacks. It will be called immediately.
   final Duration interval;
 
-  /// Shows top/right/bottom/left arrows on top of Joystick
+  /// Shows top/right/bottom/left icons on top of Joystick
   ///
   /// Defaults to [true]
-  final bool showArrows;
+  final bool showIcons;
+
+  /// Customize the icons shown on top of Joystick
+  ///
+  /// The IconData provided will be rotated to match its position
+  ///
+  /// Defaults to [Icons.arrow_upward]
+  final IconData directionIcon;
 
   JoystickView(
       {this.size,
       this.iconsColor = Colors.white54,
-      this.backgroundColor = Colors.blueGrey,
-      this.innerCircleColor = Colors.blueGrey,
+      this.innerCircle,
+      this.outerCircle,
       this.opacity,
       this.onDirectionChanged,
       this.interval,
-      this.showArrows = true});
+      this.showIcons = true,
+      this.directionIcon = Icons.arrow_upward});
 
   @override
   Widget build(BuildContext context) {
@@ -86,19 +96,21 @@ class JoystickView extends StatelessWidget {
         builder: (context, setState) {
           Widget joystick = Stack(
             children: <Widget>[
-              CircleView.joystickCircle(
-                actualSize,
-                backgroundColor,
-              ),
+              this.outerCircle.copyWith(size: actualSize) ??
+                  CircleView.joystickCircle(
+                    actualSize,
+                    Colors.blueGrey,
+                  ),
               Positioned(
-                child: CircleView.joystickInnerCircle(
-                  actualSize / 2,
-                  innerCircleColor,
-                ),
+                child: this.innerCircle.copyWith(size: actualSize / 2) ??
+                    CircleView.joystickInnerCircle(
+                      actualSize / 2,
+                      Colors.blueGrey,
+                    ),
                 top: joystickInnerPosition.dy,
                 left: joystickInnerPosition.dx,
               ),
-              if (showArrows) ...createArrows(),
+              if (showIcons) ...createIcons(),
             ],
           );
 
@@ -141,11 +153,11 @@ class JoystickView extends StatelessWidget {
     );
   }
 
-  List<Widget> createArrows() {
+  List<Widget> createIcons() {
     return [
       Positioned(
         child: Icon(
-          Icons.arrow_upward,
+          this.directionIcon,
           color: iconsColor,
         ),
         top: 16.0,
@@ -153,27 +165,36 @@ class JoystickView extends StatelessWidget {
         right: 0.0,
       ),
       Positioned(
-        child: Icon(
-          Icons.arrow_back,
-          color: iconsColor,
+        child: Transform.rotate(
+          angle: 3 * _math.pi / 2,
+          child: Icon(
+            Icons.arrow_back,
+            color: iconsColor,
+          ),
         ),
         top: 0.0,
         bottom: 0.0,
         left: 16.0,
       ),
       Positioned(
-        child: Icon(
-          Icons.arrow_forward,
-          color: iconsColor,
+        child: Transform.rotate(
+          angle: _math.pi / 2,
+          child: Icon(
+            Icons.arrow_forward,
+            color: iconsColor,
+          ),
         ),
         top: 0.0,
         bottom: 0.0,
         right: 16.0,
       ),
       Positioned(
-        child: Icon(
-          Icons.arrow_downward,
-          color: iconsColor,
+        child: Transform.rotate(
+          angle: _math.pi / 2,
+          child: Icon(
+            Icons.arrow_downward,
+            color: iconsColor,
+          ),
         ),
         bottom: 16.0,
         left: 0.0,
