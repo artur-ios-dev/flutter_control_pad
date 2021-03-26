@@ -2,28 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CircleView extends StatelessWidget {
-  final double size;
+  final double? size;
 
-  final Color color;
+  final Color? color;
 
-  final List<BoxShadow> boxShadow;
+  final List<BoxShadow>? boxShadow;
 
-  final Border border;
+  final Border? border;
 
-  final double opacity;
+  final Image? buttonImage;
 
-  final Image buttonImage;
+  final Icon? buttonIcon;
 
-  final Icon buttonIcon;
-
-  final String buttonText;
+  final String? buttonText;
 
   CircleView({
     this.size,
     this.color = Colors.transparent,
     this.boxShadow,
     this.border,
-    this.opacity,
     this.buttonImage,
     this.buttonIcon,
     this.buttonText,
@@ -34,18 +31,18 @@ class CircleView extends StatelessWidget {
     return Container(
       width: size,
       height: size,
-      child: Center(
-        child: buttonIcon != null
-            ? buttonIcon
-            : (buttonImage != null)
-                ? buttonImage
-                : (buttonText != null) ? Text(buttonText) : null,
-      ),
       decoration: BoxDecoration(
         color: color,
         shape: BoxShape.circle,
         border: border,
         boxShadow: boxShadow,
+      ),
+      child: Center(
+        child: buttonIcon != null
+            ? buttonIcon!
+            : (buttonImage != null)
+                ? buttonImage!
+                : (buttonText != null) ? Text(buttonText!) : null,
       ),
     );
   }
@@ -87,11 +84,10 @@ class CircleView extends StatelessWidget {
 
   factory CircleView.padBackgroundCircle(
           double size, Color backgroundColour, borderColor, Color shadowColor,
-          {double opacity}) =>
+          {double? opacity}) =>
       CircleView(
         size: size,
         color: backgroundColour,
-        opacity: opacity,
         border: Border.all(
           color: borderColor,
           width: 4.0,
@@ -108,10 +104,10 @@ class CircleView extends StatelessWidget {
 
   factory CircleView.padButtonCircle(
     double size,
-    Color color,
-    Image image,
-    Icon icon,
-    String text,
+    Color? color,
+    Image? image,
+    Icon? icon,
+    String? text,
   ) =>
       CircleView(
         size: size,
