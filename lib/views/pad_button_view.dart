@@ -16,14 +16,14 @@ class PadButtonsView extends StatelessWidget {
   /// recalculated for pad buttons size.
   ///
   /// Default value is calculated according to screen size.
-  final double size;
+  final double? size;
 
   /// List of pad buttons, default contains 4 buttons
   final List<PadButtonItem> buttons;
 
   /// [padButtonPressedCallback] contains information which button(index) was
   /// used by user and what gesture was done on it.
-  final PadButtonPressedCallback padButtonPressedCallback;
+  final PadButtonPressedCallback? padButtonPressedCallback;
 
   /// [buttonsStateMap] contains current colors of each button.
   final Map<int, Color> buttonsStateMap = HashMap<int, Color>();
@@ -53,7 +53,7 @@ class PadButtonsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double actualSize = size != null
-        ? size
+        ? size!
         : _math.min(MediaQuery.of(context).size.width,
                 MediaQuery.of(context).size.height) *
             0.5;
@@ -64,7 +64,7 @@ class PadButtonsView extends StatelessWidget {
   }
 
   List<Widget> createButtons(double innerCircleSize, double actualSize) {
-    List<Widget> list = List();
+    List<Widget> list = [];
     list.add(CircleView.padBackgroundCircle(
         actualSize,
         backgroundPadButtonsColor,
@@ -148,7 +148,7 @@ class PadButtonsView extends StatelessWidget {
   void _processGesture(PadButtonItem button, Gestures gesture) {
     if (padButtonPressedCallback != null &&
         button.supportedGestures.contains(gesture)) {
-      padButtonPressedCallback(button.index, gesture);
+      padButtonPressedCallback!(button.index, gesture);
       print("$gesture paddbutton id =  ${[button.index]}");
     }
   }
