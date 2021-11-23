@@ -4,7 +4,7 @@ version: 1.1.1+1
 homepage: https://github.com/artrmz/flutter_control_pad
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   flutter:
