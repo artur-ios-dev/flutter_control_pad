@@ -215,7 +215,7 @@ class JoystickView extends StatelessWidget {
   /// Returns true if enough time has passed since last time it was called
   /// or when there is no [interval] set.
   bool _canCallOnDirectionChanged(DateTime callbackTimestamp) {
-    if (interval != null && callbackTimestamp != null) {
+    if (interval != null) {
       int intervalMilliseconds = interval!.inMilliseconds;
       int timestampMilliseconds = callbackTimestamp.millisecondsSinceEpoch;
       int currentTimeMilliseconds = DateTime.now().millisecondsSinceEpoch;
