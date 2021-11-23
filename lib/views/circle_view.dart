@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CircleView extends StatelessWidget {
-  final double size;
+  final double? size;
 
-  final Color color;
+  final Color? color;
 
-  final List<BoxShadow> boxShadow;
+  final List<BoxShadow>? boxShadow;
 
-  final Border border;
+  final Border? border;
 
-  final double opacity;
+  final double? opacity;
 
-  final Image buttonImage;
+  final Image? buttonImage;
 
-  final Icon buttonIcon;
+  final Icon? buttonIcon;
 
-  final String buttonText;
+  final String? buttonText;
 
   CircleView({
     this.size,
@@ -39,7 +39,9 @@ class CircleView extends StatelessWidget {
             ? buttonIcon
             : (buttonImage != null)
                 ? buttonImage
-                : (buttonText != null) ? Text(buttonText) : null,
+                : (buttonText != null)
+                    ? Text(buttonText!)
+                    : null,
       ),
       decoration: BoxDecoration(
         color: color,
@@ -85,9 +87,9 @@ class CircleView extends StatelessWidget {
         ],
       );
 
-  factory CircleView.padBackgroundCircle(
-          double size, Color backgroundColour, borderColor, Color shadowColor,
-          {double opacity}) =>
+  factory CircleView.padBackgroundCircle(double? size, Color? backgroundColour,
+          borderColor, Color? shadowColor,
+          {double? opacity}) =>
       CircleView(
         size: size,
         color: backgroundColour,
@@ -99,7 +101,7 @@ class CircleView extends StatelessWidget {
         ),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: shadowColor,
+            color: shadowColor!,
             spreadRadius: 8.0,
             blurRadius: 8.0,
           )
