@@ -138,10 +138,10 @@ class PadButtonsView extends StatelessWidget {
             padding: EdgeInsets.all(buttonsPadding!),
             child: CircleView.padButtonCircle(
                 innerCircleSize,
-                buttonsStateMap![paddButton.index]!,
-                paddButton.buttonImage!,
-                paddButton.buttonIcon!,
-                paddButton.buttonText!),
+                buttonsStateMap?[paddButton.index],
+                paddButton.buttonImage,
+                paddButton.buttonIcon,
+                paddButton.buttonText),
           ),
         );
       }),

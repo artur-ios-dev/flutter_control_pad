@@ -111,10 +111,10 @@ class CircleView extends StatelessWidget {
 
   factory CircleView.padButtonCircle(
     double size,
-    Color color,
-    Image image,
-    Icon icon,
-    String text,
+    Color? color,
+    Image? image,
+    Icon? icon,
+    String? text,
   ) =>
       CircleView(
         size: size,
